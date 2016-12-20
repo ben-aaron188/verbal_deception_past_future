@@ -62,6 +62,36 @@ var choices_nl = [{
 }, {
     option_normal: "Een feestje geven",
     option_specific: "Een feestje geven met je huisgenoten",
+}, {
+    option_normal: "Een boek lezen",
+    option_specific: "Ter ontspanning thuis een boek lezen over dieren",
+}, {
+    option_normal: "Op vakantie gaan",
+    option_specific: "Op vakantie gaan naar Spanje met je beste vriend(in)",
+}, {
+    option_normal: "Boodschappen doen",
+    option_specific: "Boodschappen doen op de markt met een vriend(in)",
+}, {
+    option_normal: "Het huis schoonmaken",
+    option_specific: "Een grote schoonmaak houden met je huisgenoot",
+}, {
+    option_normal: "Een lange fietstocht maken",
+    option_specific: "Een lange fietstocht maken rond Amsterdam met een vriend(in)",
+}, {
+    option_normal: "Wandelen",
+    option_specific: "Wandelen in het bos met je familie",
+}, {
+    option_normal: "Klussen",
+    option_specific: "Klussen in je huis met je vader of moeder",
+}, {
+    option_normal: "Naar een bruiloft gaan",
+    option_specific: "Naar een bruiloft gaan van je nicht",
+}, {
+    option_normal: "Oppassen",
+    option_specific: "Passen op je buurmeisje in Amsterdam",
+}, {
+    option_normal: "Bij vrienden langs",
+    option_specific: "Naar je beste vriend toe om daar spelletjes te spelen",
 }];
 
 // english
@@ -100,7 +130,7 @@ var choices_en = [{
     option_specific: "Go shopping with your mom in Amsterdam",
 }, {
     option_normal: "Going on a city trip",
-    option_specific: "Going on a city trip with you sibling to The Hague",
+    option_specific: "Going on a city trip with your sibling to The Hague",
 }, {
     option_normal: "Going to the movies",
     option_specific: "Going to the movies with a date in Amsterdam",
@@ -115,7 +145,7 @@ var choices_en = [{
     option_specific: "Studying with a friend in the library",
 }, {
     option_normal: "Going to the sea",
-    option_specific: "Going to the sea with a girlfriend to do some sport",
+    option_specific: "Going to the sea with a girlfriend to sport",
 }, {
     option_normal: "Going to a museum",
     option_specific: "Going to a museum with your parents in Amsterdam",
@@ -128,8 +158,37 @@ var choices_en = [{
 }, {
     option_normal: "Throwing a party",
     option_specific: "Throwing a party with your roommates",
+}, {
+    option_normal: "Reading a book",
+    option_specific: "Reading a book about animals to relax",
+}, {
+    option_normal: "Going on a holiday",
+    option_specific: "Going on a holiday to Spain with your best friend",
+}, {
+    option_normal: "Doing groceries",
+    option_specific: "Doing groceries at the market with a friend",
+}, {
+    option_normal: "Cleaning the house",
+    option_specific: "Cleaning the house with your roommate",
+}, {
+    option_normal: "Going on a bike tour",
+    option_specific: "Cycling around Amsterdam with a friend",
+}, {
+    option_normal: "Taking a long walk",
+    option_specific: "Taking a long walk in the forest with your family",
+}, {
+    option_normal: "Doing handy work",
+    option_specific: "Doing handy work in your house with your father or mother",
+}, {
+    option_normal: "Attending a wedding",
+    option_specific: "Attending a wedding of your niece",
+}, {
+    option_normal: "Babysitting",
+    option_specific: "Babysitting your neighbor girl in Amsterdam",
+}, {
+    option_normal: "Visiting friends",
+    option_specific: "Visiting your best friend to do a game night",
 }];
-
 
 function populate_select_from_json(ID, language) {
     var choices;
@@ -141,7 +200,7 @@ function populate_select_from_json(ID, language) {
     $.each(choices, function(key, value) {
         $(ID)
             .append($("<option></option>")
-            .attr("value", key)
-            .text(value.option_normal));
+                .attr("value", key)
+                .text(value.option_normal));
     });
 }

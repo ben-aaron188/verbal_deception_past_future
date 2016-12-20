@@ -27,7 +27,7 @@ h2 {
     cursor: pointer;
     font-weight: bold;
     font-size: 5.5vw;
-    top: 85%;
+    top: 90%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;
@@ -162,12 +162,12 @@ h2 {
 
 .table_row_div {
     border-bottom: 0.1vw solid #FFBF00;
-    height: 35%;
+    border-top: 0.1vw solid #FFBF00;
+    height: 40%;
     width: 95%;
     margin: 0;
     position: relative;
-    ;
-    text-align: left;
+    text-align: center;
     font-size: 1.2vw;
     top: 30%;
     left: 50%;
@@ -179,14 +179,14 @@ h2 {
 }
 
 .activity_span {
-    height: 40%;
-    width: 30%;
+    height: 60%;
+    width: 32%;
     margin: 0;
     position: absolute;
     text-align: left;
     font-size: 1.1vw;
     top: 50%;
-    left: 20%;
+    left: 15%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;
@@ -195,8 +195,8 @@ h2 {
 }
 
 .certainty_span {
-    height: 40%;
-    width: 30%;
+    height: 60%;
+    width: 32%;
     margin: 0;
     position: absolute;
     text-align: left;
@@ -211,19 +211,35 @@ h2 {
 }
 
 .planning_span {
-    height: 40%;
-    width: 30%;
+    height: 60%;
+    width: 32%;
     margin: 0;
     position: absolute;
     text-align: left;
     font-size: 1.1vw;
     top: 50%;
-    left: 80%;
+    left: 85%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 1%;
+}
+
+.manipulation_check_span{
+  height: 40%;
+  width: 70%;
+  margin: 0;
+  position: absolute;
+  text-align: left;
+  font-size: 1.1vw;
+  top: 60%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 1%;
 }
 
 #activity_future, #activity_past {
@@ -635,13 +651,13 @@ h2 {
     background-color: #1C1C1C;
     overflow-x: hidden;
     height: 60%;
-    width: 80%;
+    width: 85%;
     padding: 1%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.3vw;
-    top: 50%;
+    font-size: 1.2vw;
+    top: 40%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -981,6 +997,22 @@ input[type=checkbox] {
   font-size: 1.8vw;
   font-weight: bold;
   top: 80%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 1%;
+}
+#instructive_span2{
+  /*height: 60%;*/
+  width: 70%;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  font-size: 1.9vw;
+  font-weight: bold;
+  top: 65%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);

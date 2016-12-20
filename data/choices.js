@@ -106,7 +106,7 @@ var choices_en = [{
     option_specific: "Going out for a drink with your friends in Amsterdam",
 }, {
     option_normal: "Work out",
-    option_specific: "Work out with your sport team",
+    option_specific: "Work out with your sports team",
 }, {
     option_normal: "Watching Netflix",
     option_specific: "Watching Netflix with your roommate",
@@ -177,8 +177,8 @@ var choices_en = [{
     option_normal: "Taking a long walk",
     option_specific: "Taking a long walk in the forest with your family",
 }, {
-    option_normal: "Doing odd jobs",
-    option_specific: "Doing odd jobs in your house with your father or mother",
+    option_normal: "Doing handy work",
+    option_specific: "Doing handy work in your house with your father or mother",
 }, {
     option_normal: "Attending a wedding",
     option_specific: "Attending a wedding of your niece",
@@ -189,3 +189,18 @@ var choices_en = [{
     option_normal: "Visiting friends",
     option_specific: "Visiting your best friend to do a game night",
 }];
+
+function populate_select_from_json(ID, language) {
+    var choices;
+    if (language === 0) {
+        choices = choices_nl;
+    } else if (language == 1) {
+        choices = choices_en;
+    }
+    $.each(choices, function(key, value) {
+        $(ID)
+            .append($("<option></option>")
+                .attr("value", key)
+                .text(value.option_normal));
+    });
+}

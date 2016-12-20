@@ -38,6 +38,46 @@ var quiz_nl = [{
         option4: "Omdat zij daar een week geleden met een vriend had afgesproken"
     },
     quiz_correct: "Omdat zij er een wiskundetoets als toelating voor de studie moest maken"
+}, {
+    quiz_id: 5,
+    quiz_question: "Hoe heten de begeleiders van de schrijver?",
+    quiz_options: {
+        option1: "Anne en Yasmin",
+        option2: "Anna en Sofia",
+        option3: "Sophie en Jasmine",
+        option4: "Katie en Lotte"
+    },
+    quiz_correct: "Anne en Yasmin"
+}, {
+    quiz_id: 6,
+    quiz_question: "Wanneer was de uitnodiging voor de introductieweek verstuurd?",
+    quiz_options: {
+        option1: "5 september",
+        option2: "18 juli",
+        option3: "23 maart",
+        option4: "30 augustus"
+    },
+    quiz_correct: "18 juli"
+}, {
+    quiz_id: 7,
+    quiz_question: "Hoe stelde de schrijver zich voor?",
+    quiz_options: {
+        option1: "Anne",
+        option2: "Yasmin",
+        option3: "Sofia",
+        option4: "Juul"
+    },
+    quiz_correct: "Juul"
+}, {
+    quiz_id: 8,
+    quiz_question: "Wat bevindt zich op het dak van ‘The Basket’?",
+    quiz_options: {
+        option1: "Een basketbalveld",
+        option2: "Een voetbalkooi",
+        option3: "Een terras",
+        option4: "Een club"
+    },
+    quiz_correct: "Een basketbalveld"
 }];
 
 var quiz_en = [{
@@ -80,4 +120,44 @@ var quiz_en = [{
         option4: "Because last week, she had an appointment at The Basket with a friend"
     },
     quiz_correct: "Because she had to take an admission exam in mathematics previously near The Basket"
+}, {
+    quiz_id: 5,
+    quiz_question: "What are the names of the mentors of the author?",
+    quiz_options: {
+        option1: "Anne and Yasmin",
+        option2: "Anna and Sofia",
+        option3: "Sophie and Jasmine",
+        option4: "Katie and Lotte"
+    },
+    quiz_correct: "Anne and Yasmin"
+}, {
+    quiz_id: 6,
+    quiz_question: "When was the invitation of the introduction week sent?",
+    quiz_options: {
+        option1: "5th of September",
+        option2: "18th of July",
+        option3: "23rd of March",
+        option4: "30th of August"
+    },
+    quiz_correct: "18th of July"
+}, {
+    quiz_id: 7,
+    quiz_question: "How did the author introduce herself?",
+    quiz_options: {
+        option1: "Anne",
+        option2: "Yasmin",
+        option3: "Sofia",
+        option4: "Juul"
+    },
+    quiz_correct: "Juul"
+}, {
+    quiz_id: 8,
+    quiz_question: "What is located at the roof of ‘The Basket’?",
+    quiz_options: {
+        option1: "A basketball court",
+        option2: "A soccer cage",
+        option3: "A terrace",
+        option4: "A club",
+    },
+    quiz_correct: "A basketball court"
 }];
