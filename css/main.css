@@ -61,7 +61,10 @@ h2 {
     overflow: scroll;
     overflow-x: hidden;
 }
-
+#model_statement1{
+  font-size: 1.4vw;
+  letter-spacing: 0.10vw;
+}
 .textva {
     border: 0.3vw solid red;
     font-weight: lighter;
@@ -227,13 +230,13 @@ h2 {
 }
 
 .manipulation_check_span{
-  height: 40%;
-  width: 70%;
+  height: 70%;
+  width: 60%;
   margin: 0;
   position: absolute;
   text-align: left;
   font-size: 1.1vw;
-  top: 60%;
+  top: 50%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);

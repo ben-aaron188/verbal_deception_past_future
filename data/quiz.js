@@ -102,7 +102,7 @@ var quiz_en = [{
     quiz_correct: "The Hague"
 }, {
     quiz_id: 3,
-    quiz_question: "With which study is the author about to start?",
+    quiz_question: "Which course of study is the author about to start?",
     quiz_options: {
         option1: "Psychology",
         option2: "Social Sciences",

@@ -51,18 +51,33 @@ function check_multi_select_2(language) {
     var class_values_2 = [];
     var score_1 = 0;
     var score_2 = 0;
-    $(".select_menu_2").each(function() {
-        if ($(this).is(":visible")) {
-            $("#activity_future_sel :selected").each(function(i, val) {
-                class_values_1[i] = $(val).text().length;
-                score_1 = $.inArray(0, class_values_1);
-            });
-            $("#activity_future_non_sel :selected").each(function(i, val) {
-                class_values_2[i] = $(val).text().length;
-                score_2 = $.inArray(0, class_values_2);
-            });
-        }
-    });
+    if (conditions.time === 0) {
+        $(".select_menu_2").each(function() {
+            if ($(this).is(":visible")) {
+                $("#activity_past_sel :selected").each(function(i, val) {
+                    class_values_1[i] = $(val).text().length;
+                    score_1 = $.inArray(0, class_values_1);
+                });
+                $("#activity_past_non_sel :selected").each(function(i, val) {
+                    class_values_2[i] = $(val).text().length;
+                    score_2 = $.inArray(0, class_values_2);
+                });
+            }
+        });
+    } else if (conditions.time == 1) {
+        $(".select_menu_2").each(function() {
+            if ($(this).is(":visible")) {
+                $("#activity_future_sel :selected").each(function(i, val) {
+                    class_values_1[i] = $(val).text().length;
+                    score_1 = $.inArray(0, class_values_1);
+                });
+                $("#activity_future_non_sel :selected").each(function(i, val) {
+                    class_values_2[i] = $(val).text().length;
+                    score_2 = $.inArray(0, class_values_2);
+                });
+            }
+        });
+    }
     if (score_1 > -1 || score_2 > -1) {
         alert(alert_msg);
         score = 0;
@@ -96,18 +111,32 @@ function check_multi_select() {
 function find_duplicates_in_array() {
     var class_values_1 = [];
     var class_values_2 = [];
-    $(".select_menu_2").each(function() {
-        if ($(this).is(":visible")) {
-            $("#activity_future_sel :selected").each(function(i, val) {
-                class_values_1[i] = $(val).text();
-            });
-            $("#activity_future_non_sel :selected").each(function(i, val) {
-                class_values_2[i] = $(val).text();
-            });
-        }
-    });
+    if (conditions.time === 0) {
+        $(".select_menu_2").each(function() {
+            if ($(this).is(":visible")) {
+                $("#activity_past_sel :selected").each(function(i, val) {
+                    class_values_1[i] = $(val).text();
+                });
+                $("#activity_past_non_sel :selected").each(function(i, val) {
+                    class_values_2[i] = $(val).text();
+                });
+            }
+        });
+    } else if (conditions.time == 1) {
+        $(".select_menu_2").each(function() {
+            if ($(this).is(":visible")) {
+                $("#activity_future_sel :selected").each(function(i, val) {
+                    class_values_1[i] = $(val).text();
+                });
+                $("#activity_future_non_sel :selected").each(function(i, val) {
+                    class_values_2[i] = $(val).text();
+                });
+            }
+        });
+    }
+
     var class_values_1_unique = class_values_1.unique();
-    n_activities_future = class_values_1_unique.length;
+    n_activities = class_values_1_unique.length;
     var class_values_2_unique = class_values_2.unique();
     var class_values = class_values_1_unique.concat(class_values_2_unique);
     var class_values_unique = class_values.unique();
@@ -273,6 +302,34 @@ function check_slider(classname) {
     }
 }
 
+function check_slider_2(classname) {
+    class_values = [];
+    score = -999;
+    // classname.each(function() {
+    $(".slider_io_output").each(function() {
+        if ($(this).is(":visible")) {
+            class_values.push($(this).val().length);
+            score = $.inArray(15, class_values);
+        }
+    });
+    if (score !== -999) {
+        var alert_msg;
+        if (conditions.cond_lang === 0) {
+            alert_msg = "Beweeg alsjeblieft de sliders om je keuzes aan te geven.";
+        } else if (conditions.cond_lang == 1) {
+            alert_msg = "Please move the sliders to indicate your choices.";
+        }
+        alert(alert_msg);
+        score = -999;
+    } else {
+        return true;
+    }
+}
+
+function set_slider_true(){
+
+}
+
 function get_unid() {
     // if (val_score === 0) {
     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
@@ -366,11 +423,13 @@ function check_input(ID, language) {
 function check_text(ID, desiredLength, language) {
     var alert_msg;
     if (language === 0) {
-        alert_msg = "Schrijf alsjeblieft ten minste " + desiredLength + " tekens om deze vraag te beantwoorden.";
+        alert_msg = "Schrijf alsjeblieft ten minste " + desiredLength + " woorden om deze vraag te beantwoorden.";
     } else if (language == 1) {
-        alert_msg = "Please use at least " + desiredLength + " characters to answer this questions.";
+        alert_msg = "Please use at least " + desiredLength + " words to answer this questions.";
     }
-    var raw = ID.val().toLowerCase().replace(/ /g, '');
+    // var raw = ID.val().toLowerCase().replace(/ /g, '');
+    var raw = ID.val().toLowerCase().split(/\s+/);
+    // $("#statement1").val().toLowerCase()
     if (raw.length < desiredLength) {
         alert(alert_msg);
     } else {
@@ -436,11 +495,42 @@ function set_planning_slider_value(number) {
     $(output).val($(input).val() + '%');
 }
 
-function set_manipulation_check_slider_value() {
-    var input = "#manipulation_check_val";
-    var output = "#manipulation_check_output";
+function set_certainty_slider_value_2(number) {
+    var input = "#activity" + number + "_certainty";
+    var output = "#certainty_output_" + number;
+    $(output).val($(input).val() + '%').hide();
+}
+
+function set_frequency_slider_value_2(number) {
+    var input = "#activity" + number + "_frequency";
+    var output = "#frequency_output_" + number;
+    $(output).val($(input).val() + '%').hide();
+}
+
+function set_planning_slider_value_2(number) {
+    var input = "#activity" + number + "_planning";
+    var output = "#planning_output_" + number;
+    $(output).val($(input).val() + '%').hide();
+}
+
+function set_manipulation_check1_slider_value() {
+    var input = "#manipulation_check1_val";
+    var output = "#manipulation_check1_output";
     $(output).val($(input).val() + '%');
 }
+
+function set_manipulation_check2_slider_value() {
+    var input = "#manipulation_check2_val";
+    var output = "#manipulation_check2_output";
+    $(output).val($(input).val() + '%');
+}
+
+function set_manipulation_check3_slider_value() {
+    var input = "#manipulation_check3_val";
+    var output = "#manipulation_check3_output";
+    $(output).val($(input).val() + '%');
+}
+
 
 
 function activate_stretch() {
@@ -460,7 +550,8 @@ function get_cond() {
     var cond_ver = randomdigit(0, 1);
     // 0: truthful
     // 1: deceptive
-    var cb = randomdigit(0, 1);
+    // var cb = randomdigit(0, 1);
+    var cb = 1;
     // 0: past
     // 1: future
     var conds = {
@@ -536,6 +627,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<div class="slider_io">' +
                     '<span id="slider_instr">Hoe vaak heb je dit in het verleden gedaan?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                    // '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
                     '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(nog nooit) -  -  -  (heel vaak)</div> ' +
                     '</div>' +
@@ -607,7 +699,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<span class="activity_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How often have you done this in the past?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value_2(' + number + ')">' +
                     '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
                     '</div>' +
@@ -615,7 +707,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<span class="certainty_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How certain are you that you will do this?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value_2(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
                     '</div>' +
@@ -623,7 +715,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<span class="planning_span">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How well have you planned this already?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value(' + number + ')">' +
+                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_planning" value="50" min="0" max="100" step="5" oninput="set_planning_slider_value_2(' + number + ')">' +
                     '<output class="slider_io_output" id="planning_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
                     '</div>' +
@@ -635,7 +727,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<span class="activity_span" style="left: 33%;">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How often have you done this in the past?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value_2(' + number + ')">' +
                     '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
                     '</div>' +
@@ -643,7 +735,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '<span class="certainty_span" style="left: 66%;">' +
                     '<div class="slider_io">' +
                     '<span id="slider_instr">How certain are you that you will <u>not</u> do this activity next weekend?</span> ' +
-                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
+                    '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value_2(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +
                     '</div>' +
@@ -664,7 +756,7 @@ function generate_table_row(number, item, temporality, language, state) {
                 '<span class="activity_span">' +
                 '<div class="slider_io">' +
                 '<span id="slider_instr">How often have you done this in the past?</span> ' +
-                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value(' + number + ')">' +
+                '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_frequency" value="50" min="0" max="100" step="5" oninput="set_frequency_slider_value_2(' + number + ')">' +
                 '<output class="slider_io_output" id="frequency_output_' + number + '">move the slider</output>' +
                 '<div class="slider_io_output_labels stretch">(never) -  -  -  (very often)</div> ' +
                 '</div>' +
