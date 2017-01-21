@@ -326,7 +326,7 @@ function check_slider_2(classname) {
     }
 }
 
-function set_slider_true(){
+function set_slider_true() {
 
 }
 
@@ -548,10 +548,11 @@ function get_cond() {
     // 0: Dutch
     // 1: English
     var cond_ver = randomdigit(0, 1);
+    // var cond_ver = 1;
     // 0: truthful
     // 1: deceptive
-    // var cb = randomdigit(0, 1);
-    var cb = 1;
+    var cb = randomdigit(0, 1);
+    // var cb = 1;
     // 0: past
     // 1: future
     var conds = {
@@ -565,6 +566,7 @@ function get_cond() {
 function select_manipulation(temporality, language) {
     var selected_obj;
     var selected_obj_;
+    var selected_obj_x;
     var selected_obj__;
     var candidate_objects;
     var choices;
@@ -605,7 +607,16 @@ function select_manipulation(temporality, language) {
         var obj_array_ = obj_array.filter(function(val, index, array) {
             return activities_do.indexOf(val.sel_val) < 0;
         });
-        selected_obj_ = obj_array_.reduce((max, single) => max.combined > single.combined ? max : single);
+        // selected_obj_ = obj_array_.reduce((max, single) => max.combined > single.combined ? max : single);
+        selected_obj_ = obj_array_.reduce(function(max, single) {
+            if (max.combined > single.combined) {
+                return max;
+            } else {
+                return single;
+            }
+        });
+        // console.log(selected_obj_);
+        // console.log(selected_obj_x);
         selected_obj__ = selected_obj_.sel_val;
         matches = choices.filter(function(val, index, array) {
             return val.option_normal == selected_obj__;

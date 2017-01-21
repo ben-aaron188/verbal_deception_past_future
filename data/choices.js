@@ -90,6 +90,9 @@ var choices_nl = [{
     option_normal: "Oppassen",
     option_specific: "Passen op je buurmeisje in Amsterdam",
 }, {
+    option_normal: "Met je kinderen spelen",
+    option_specific: "Met je drie kinderen in het park spelen",
+}, {
     option_normal: "Bij vrienden langs",
     option_specific: "Naar je beste vriend toe om daar spelletjes te spelen",
 }];
@@ -185,6 +188,9 @@ var choices_en = [{
 }, {
     option_normal: "Babysitting",
     option_specific: "Babysitting your neighbor girl in Amsterdam",
+}, {
+    option_normal: "Playing with my kids",
+    option_specific: "Playing with your three kids in the park",
 }, {
     option_normal: "Visiting friends",
     option_specific: "Visiting your best friend to do a game night",

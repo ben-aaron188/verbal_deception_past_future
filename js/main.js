@@ -4,26 +4,27 @@ var data_statement1;
 var unid;
 var repetition_count = 0;
 var conditions;
-var timer_ms1 = 120000;
-var timer_ms2 = 60000;
-var min_char = 100;
-// var timer_ms1 = 1200; //180000
-// var timer_ms2 = 600; //60000
-// var min_char = 3;
+// var timer_ms1 = 90000;
+// var timer_ms2 = 100;
+// var min_char = 80;
+var timer_ms1 = 1200;
+var timer_ms2 = 100;
+var min_char = 3;
 var time_langtask1 = 2000;
 var quiz_order = [0, 1, 2, 3, 4, 5, 6, 7];
 
-
 // task flow
 $(document).ready(function() {
-    init_data();
-    getIP();
     var text = introduction;
     $('body').prepend('<div id="intro1" class="main_instructions_">' + text + '</div>');
     $("#intro1").show();
     $("#back").hide();
     $("#next").attr('onclick', 'to_informed_consent()');
-    get_unid();
+    setTimeout(function() {
+        init_data();
+        getIP();
+        get_unid();
+    }, 100);
 });
 
 function to_informed_consent() {
@@ -292,7 +293,7 @@ function to_text_input_instructions1() {
         var instruction_span = '<span id="instructive_span">' + instructive + '</span>';
         $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + instruction_span + '</div>');
         simple_transition_2($(".main_instructions__"), $("#text_input_instructions_1"));
-        // $("#next").attr('onclick', 'to_statement_input1()');
+        $("#back").hide();
         $("#next").attr('onclick', 'to_model_statement1()');
     }
 }
@@ -396,16 +397,32 @@ function to_pre_input_reminder() {
     if (check_quiz_answer(4, quiz_order[3], conditions.cond_lang) === true) {
         var text;
         if (conditions.cond_lang === 0) {
-            if (conditions.cond_ver === 0) {
-                text = pre_input_truthful_nl;
-            } else if (conditions.cond_ver == 1) {
-                text = pre_input_deceptive_nl;
+            if (conditions.time === 0) {
+                if (conditions.cond_ver === 0) {
+                    text = pre_input_truthful_past_nl;
+                } else if (conditions.cond_ver == 1) {
+                    text = pre_input_deceptive_past_nl;
+                }
+            } else if (conditions.time == 1) {
+                if (conditions.cond_ver === 0) {
+                    text = pre_input_truthful_future_nl;
+                } else if (conditions.cond_ver == 1) {
+                    text = pre_input_deceptive_future_nl;
+                }
             }
         } else if (conditions.cond_lang == 1) {
-            if (conditions.cond_ver === 0) {
-                text = pre_input_truthful_en;
-            } else if (conditions.cond_ver == 1) {
-                text = pre_input_deceptive_en;
+            if (conditions.time === 0) {
+                if (conditions.cond_ver === 0) {
+                    text = pre_input_truthful_past_en;
+                } else if (conditions.cond_ver == 1) {
+                    text = pre_input_deceptive_past_en;
+                }
+            } else if (conditions.time == 1) {
+                if (conditions.cond_ver === 0) {
+                    text = pre_input_truthful_future_en;
+                } else if (conditions.cond_ver == 1) {
+                    text = pre_input_deceptive_future_en;
+                }
             }
         }
         var instruction_span = '<span id="instructive_span2">' + instructive + '</span>';
@@ -418,19 +435,14 @@ function to_pre_input_reminder() {
 function to_statement_input1() {
     var text;
     if (conditions.cond_lang === 0) {
-        // if (conditions.cb === 0) {
-        //     instructive = select_manipulation('future', conditions.cond_lang);
-        // } else if (conditions.cb == 1) {
-        //     instructive = select_manipulation('past', conditions.cond_lang);
-        // }
         text = instructions_inputfield_nl;
     } else if (conditions.cond_lang == 1) {
-        // if (conditions.cb === 0) {
-        //     instructive = select_manipulation('future', conditions.cond_lang);
-        // } else if (conditions.cb == 1) {
-        //     instructive = select_manipulation('past', conditions.cond_lang);
-        // }
-        text = instructions_inputfield_en;
+        if (conditions.time === 0) {
+            text = instructions_inputfield_past_en;
+        } else if (conditions.time == 1) {
+            text = instructions_inputfield_future_en;
+        }
+        // text = instructions_inputfield_en;
     }
 
     var input_field = '<textarea type="text" rows="10" cols="80" class="text_input1" id="statement1" placehoder="your answer"></textarea>';
@@ -450,20 +462,36 @@ function to_manipulation_check() {
         var slider;
         if (conditions.cond_lang === 0) {
             text = manipulation_check_nl;
-            slider = '<span class="manipulation_check_span" style="left: 50%;">' +
+            slider_a = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
                 '<div class="slider_io">' +
-                '<span id="slider_instr">Hoe waarachtig was jouw verhaal?</span> ' +
+                '<span id="slider_instr">Wat waren jouw instructies?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="manipulation_check1_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check1_slider_value()">' +
-                '<output class="slider_io_output" id="manipulation_check1_output">move the slider</output>' +
-                '<div class="slider_io_output_labels stretch">(helemaal niet waar) -  -  -  (helemaal wel waar)</div> ' +
+                '<output class="slider_io_output" id="manipulation_check1_output">beweeg de slider</output>' +
+                '<div class="slider_io_output_labels stretch">(waarheid) -  -  -  (liegen)</div> ' +
                 '</div>' +
+                '</span>' +
+                '</div>';
+            slider_b = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
                 '<div class="slider_io">' +
-                '<span id="slider_instr">Hoe waarachtig was jouw verhaal?</span> ' +
+                '<span id="slider_instr">How waarachtig was jouw verhaal?</span> ' +
                 '<input type="range" class="slider_io_slider select_menu" id="manipulation_check2_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check2_slider_value()">' +
-                '<output class="slider_io_output" id="manipulation_check2_output">move the slider</output>' +
-                '<div class="slider_io_output_labels stretch">(helemaal niet waar) -  -  -  (helemaal wel waar)</div> ' +
+                '<output class="slider_io_output" id="manipulation_check2_output">beweeg de slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (volledig)</div> ' +
                 '</div>' +
-                '</span>';
+                '</span>' +
+                '</div>';
+            slider_c = '<div id="manip_check" class="table_row_div">' +
+                '<span class="manipulation_check_span" style="left: 50%;">' +
+                '<div class="slider_io">' +
+                '<span id="slider_instr">Hoe gemotiveerd was je om een overtuigend verhaal te schrijven?</span> ' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check3_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check3_slider_value()">' +
+                '<output class="slider_io_output" id="manipulation_check3_output">beweeg de slider</output>' +
+                '<div class="slider_io_output_labels stretch">(helemaal niet) -  -  -  (absoluut)</div> ' +
+                '</div>' +
+                '</span>' +
+                '</div>';
         } else if (conditions.cond_lang == 1) {
             text = manipulation_check_en;
             slider_a = '<div id="manip_check" class="table_row_div">' +
@@ -550,7 +578,7 @@ function to_demographics2() {
 
 function to_outro() {
     if (check_fields($(".select_menu")) === true) {
-      unblock_copy_pasting();
+        unblock_copy_pasting();
         var outro_dom;
         if (conditions.cond_lang === 0) {
             outro_dom = outro_nl;
@@ -617,7 +645,9 @@ function get_data() {
     data.cond_ver = conditions.cond_ver;
     data.time = conditions.time;
 
-    data.manipulation_check = $("#manipulation_check_val").val();
+    data.manipulation_check1 = $("#manipulation_check1_val").val();
+    data.manipulation_check2 = $("#manipulation_check2_val").val();
+    data.manipulation_check3 = $("#manipulation_check3_val").val();
 
     data.activity = instructive;
     data.n_activities = n_activities;
