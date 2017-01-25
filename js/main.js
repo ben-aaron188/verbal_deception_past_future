@@ -284,6 +284,7 @@ function to_text_input_instructions1() {
                 text = instructions_deceptive_future;
             }
         }
+        // console.log('check for debug');
         instructive = '';
         if (conditions.time === 0) {
             instructive = select_manipulation('past', conditions.cond_lang);
@@ -386,8 +387,6 @@ function to_quiz_4() {
             var quiz_menu = make_quiz_question(param_id, param_number, param_language);
             $('body').prepend('<div id="quiz_div_4" class="main_instructions_">' + quiz_menu + '</div>');
             simple_transition_2($(".main_instructions_"), $("#quiz_div_4"));
-            // $("#next").attr('onclick', 'to_text_input_instructions1()');
-            // $("#next").attr('onclick', 'to_statement_input1()');
             $("#next").attr('onclick', 'to_pre_input_reminder()');
         }
     }
@@ -653,6 +652,10 @@ function get_data() {
     data.n_activities = n_activities;
 
     data.selected_activities = selected_activities;
+
+    data.length_prompt_n = length_prompt;
+    data.language_prompt_n = language_prompt;
+    data.ms_prompt_n = ms_prompt;
 
     data.statement1_content = statement1_main.content;
     data.statement1_defoucus = statement1_main.pagefocus.defocus;
