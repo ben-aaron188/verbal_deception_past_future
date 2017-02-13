@@ -4,12 +4,12 @@ var data_statement1;
 var unid;
 var repetition_count = 0;
 var conditions;
-// var timer_ms1 = 90000;
-// var timer_ms2 = 100;
-// var min_char = 80;
-var timer_ms1 = 1200;
+var timer_ms1 = 60000;
 var timer_ms2 = 100;
-var min_char = 3;
+var min_char = 80;
+// var timer_ms1 = 1200;
+// var timer_ms2 = 100;
+// var min_char = 3;
 var time_langtask1 = 2000;
 var quiz_order = [0, 1, 2, 3, 4, 5, 6, 7];
 

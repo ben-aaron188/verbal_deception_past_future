@@ -1,3 +1,8 @@
+html {
+    overflow: -moz-scrollbars-vertical;
+    overflow: scroll;
+}
+
 #html1 * {
     font-family: "Helvetica" !important;
     background-color: #1C1C1C;
@@ -34,12 +39,15 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
+
 #back {
     left: 10%;
 }
+
 #next {
     left: 90%;
 }
+
 .text1 {
     border: 0.5vw solid #FFBF00;
     font-weight: lighter;
@@ -61,10 +69,12 @@ h2 {
     overflow: scroll;
     overflow-x: hidden;
 }
-#model_statement1{
-  font-size: 1.4vw;
-  letter-spacing: 0.10vw;
+
+#model_statement1 {
+    font-size: 1.4vw;
+    letter-spacing: 0.10vw;
 }
+
 .textva {
     border: 0.3vw solid red;
     font-weight: lighter;
@@ -229,20 +239,20 @@ h2 {
     padding-top: 1%;
 }
 
-.manipulation_check_span{
-  height: 70%;
-  width: 60%;
-  margin: 0;
-  position: absolute;
-  text-align: left;
-  font-size: 1.1vw;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-top: 1%;
+.manipulation_check_span {
+    height: 70%;
+    width: 60%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.1vw;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
 }
 
 #activity_future, #activity_past {
@@ -991,35 +1001,36 @@ input[type=checkbox] {
     padding-top: 1%;
 }
 
-#instructive_span{
-  /*height: 60%;*/
-  width: 70%;
-  margin: 0;
-  position: absolute;
-  text-align: center;
-  font-size: 1.8vw;
-  font-weight: bold;
-  top: 80%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-top: 1%;
+#instructive_span {
+    /*height: 60%;*/
+    width: 70%;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    font-size: 1.8vw;
+    font-weight: bold;
+    top: 80%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
 }
-#instructive_span2{
-  /*height: 60%;*/
-  width: 70%;
-  margin: 0;
-  position: absolute;
-  text-align: center;
-  font-size: 1.9vw;
-  font-weight: bold;
-  top: 65%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-top: 1%;
+
+#instructive_span2 {
+    /*height: 60%;*/
+    width: 70%;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    font-size: 1.9vw;
+    font-weight: bold;
+    top: 65%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
 }
