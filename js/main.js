@@ -14,13 +14,13 @@ var time_langtask1 = 2000;
 var quiz_order = [0, 1, 2, 3, 4, 5, 6, 7];
 
 // task flow
-$(document).ready(function() {
+$(document).ready(function () {
     var text = introduction;
     $('body').prepend('<div id="intro1" class="main_instructions_">' + text + '</div>');
     $("#intro1").show();
     $("#back").hide();
     $("#next").attr('onclick', 'to_informed_consent()');
-    setTimeout(function() {
+    setTimeout(function () {
         init_data();
         getIP();
         get_unid();
@@ -80,7 +80,7 @@ function to_main_instructions6() {
             '<select id="activity_past_non_sel" class="select_menu_2" multiple>' +
             '</select>' +
             '</div>';
-        setTimeout(function() {
+        setTimeout(function () {
             populate_select_from_json($("#activity_past_sel"), conditions.cond_lang);
             populate_select_from_json($("#activity_past_non_sel"), conditions.cond_lang);
         }, 100);
@@ -96,7 +96,7 @@ function to_main_instructions6() {
             '<select id="activity_future_non_sel" class="select_menu_2" multiple>' +
             '</select>' +
             '</div>';
-        setTimeout(function() {
+        setTimeout(function () {
             populate_select_from_json($("#activity_future_sel"), conditions.cond_lang);
             populate_select_from_json($("#activity_future_non_sel"), conditions.cond_lang);
         }, 100);
@@ -123,7 +123,7 @@ function to_main_instructions6_proxy() {
             '<select id="activity_past_non_sel" class="select_menu_2" multiple>' +
             '</select>' +
             '</div>';
-        setTimeout(function() {
+        setTimeout(function () {
             populate_select_from_json($("#activity_past_sel"), conditions.cond_lang);
             populate_select_from_json($("#activity_past_non_sel"), conditions.cond_lang);
         }, 100);
@@ -139,7 +139,7 @@ function to_main_instructions6_proxy() {
             '<select id="activity_future_non_sel" class="select_menu_2" multiple>' +
             '</select>' +
             '</div>';
-        setTimeout(function() {
+        setTimeout(function () {
             populate_select_from_json($("#activity_future_sel"), conditions.cond_lang);
             populate_select_from_json($("#activity_future_non_sel"), conditions.cond_lang);
         }, 100);
@@ -152,7 +152,7 @@ function to_main_instructions6_proxy() {
 
 
 function to_main_instructions7() {
-    if (check_multi_select_2(conditions.cond_lang) === true) {
+    if (check_multi_select_3(conditions.cond_lang, 4) === true) {
         if (find_duplicates_in_array() === true) {
             var items_for_rating;
             var items_for_rating_3;
@@ -173,7 +173,7 @@ function to_main_instructions7() {
             } else {
                 items_for_rating_3 = items_for_rating;
             }
-            $(items_for_rating_3).each(function(index, val) {
+            $(items_for_rating_3).each(function (index, val) {
                 if (conditions.time === 0) {
                     a = generate_table_row(index, val, 'past', conditions.cond_lang, 'do');
                     $('#main_instructions7').append(a);
@@ -212,7 +212,7 @@ function to_main_instructions7_proxy() {
         } else {
             items_for_rating_3 = items_for_rating;
         }
-        $(items_for_rating_3).each(function(index, val) {
+        $(items_for_rating_3).each(function (index, val) {
             if (conditions.time === 0) {
                 a = generate_table_row(index, val, 'past', conditions.cond_lang, 'do');
                 $('#main_instructions7').append(a);
@@ -251,7 +251,7 @@ function to_main_instructions7a() {
         }
         $('body').prepend('<div id="main_instructions7a" class="main_instructions__">' + text + '</div>');
 
-        $(items_for_rating_3).each(function(index, val) {
+        $(items_for_rating_3).each(function (index, val) {
             if (conditions.time === 0) {
                 a = generate_table_row(index, val, 'past', conditions.cond_lang, 'notdo');
                 $('#main_instructions7a').append(a);
@@ -295,7 +295,11 @@ function to_text_input_instructions1() {
         $('body').prepend('<div id="text_input_instructions_1" class="main_instructions_">' + text + instruction_span + '</div>');
         simple_transition_2($(".main_instructions__"), $("#text_input_instructions_1"));
         $("#back").hide();
-        $("#next").attr('onclick', 'to_model_statement1()');
+        if (conditions.ms == 1) {
+            $("#next").attr('onclick', 'to_model_statement1()');
+        } else if (conditions.ms === 0) {
+            $("#next").attr('onclick', 'to_pre_input_reminder()');
+        }
     }
 }
 
@@ -313,7 +317,7 @@ function to_model_statement1() {
     $('body').prepend('<div id="model_statement1" class="main_instructions_">' + text + modelstatement + '</div>');
     simple_transition_2($(".main_instructions_"), $("#model_statement1"));
     $("#next").attr('onclick', 'to_quiz_1()').hide();
-    setTimeout(function() {
+    setTimeout(function () {
         $("#next").show();
     }, timer_ms1);
 }
@@ -332,7 +336,7 @@ function to_model_statement1_proxy() {
     $('body').prepend('<div id="model_statement1" class="main_instructions_">' + text + modelstatement + '</div>');
     simple_transition_2($(".main_instructions_"), $("#model_statement1"));
     $("#next").attr('onclick', 'to_quiz_1()').hide();
-    setTimeout(function() {
+    setTimeout(function () {
         $("#next").show();
     }, timer_ms2);
 }

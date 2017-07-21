@@ -6,10 +6,10 @@ var ms_prompt = 0;
 function check_fields(classname) {
     var class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             // if($(this).attr('type') == 'text'){
-            $(this).each(function() {
+            $(this).each(function () {
                 class_values.push($(this).val().length);
                 score = $.inArray(0, class_values);
             });
@@ -42,6 +42,30 @@ function check_fields(classname) {
 // });
 
 
+function check_multi_select_3(language, number_of_required_sum) {
+    var alert_msg;
+    if (language === 0) {
+        alert_msg = 'Kies het gevraagde aantal opties.';
+    } else if (language == 1) {
+        alert_msg = 'Select the required number of options.';
+    }
+    var score_1 = 0;
+    var score_2 = 0;
+    $(".select_menu_2").each(function() {
+        if ($(this).is(":visible")) {
+            score_1 = $("#activity_future_sel :selected").length;
+            score_2 = $("#activity_future_non_sel :selected").length;
+        }
+    });
+    if (score_1 + score_2 < number_of_required_sum) {
+        alert(alert_msg);
+        score = 0;
+    } else {
+        return true;
+    }
+}
+
+
 // needs refinement to generic ids (see above)
 function check_multi_select_2(language) {
     var alert_msg;
@@ -55,26 +79,26 @@ function check_multi_select_2(language) {
     var score_1 = 0;
     var score_2 = 0;
     if (conditions.time === 0) {
-        $(".select_menu_2").each(function() {
+        $(".select_menu_2").each(function () {
             if ($(this).is(":visible")) {
-                $("#activity_past_sel :selected").each(function(i, val) {
+                $("#activity_past_sel :selected").each(function (i, val) {
                     class_values_1[i] = $(val).text().length;
                     score_1 = $.inArray(0, class_values_1);
                 });
-                $("#activity_past_non_sel :selected").each(function(i, val) {
+                $("#activity_past_non_sel :selected").each(function (i, val) {
                     class_values_2[i] = $(val).text().length;
                     score_2 = $.inArray(0, class_values_2);
                 });
             }
         });
     } else if (conditions.time == 1) {
-        $(".select_menu_2").each(function() {
+        $(".select_menu_2").each(function () {
             if ($(this).is(":visible")) {
-                $("#activity_future_sel :selected").each(function(i, val) {
+                $("#activity_future_sel :selected").each(function (i, val) {
                     class_values_1[i] = $(val).text().length;
                     score_1 = $.inArray(0, class_values_1);
                 });
-                $("#activity_future_non_sel :selected").each(function(i, val) {
+                $("#activity_future_non_sel :selected").each(function (i, val) {
                     class_values_2[i] = $(val).text().length;
                     score_2 = $.inArray(0, class_values_2);
                 });
@@ -93,9 +117,9 @@ function check_multi_select_2(language) {
 function check_multi_select() {
     var class_values = [];
     score = 0;
-    $(".select_menu_2").each(function() {
+    $(".select_menu_2").each(function () {
         if ($(this).is(":visible")) {
-            $(".select_menu_2 :selected").each(function(i, val) {
+            $(".select_menu_2 :selected").each(function (i, val) {
                 class_values[i] = $(val).text().length;
                 score = $.inArray(0, class_values);
             });
@@ -115,23 +139,23 @@ function find_duplicates_in_array() {
     var class_values_1 = [];
     var class_values_2 = [];
     if (conditions.time === 0) {
-        $(".select_menu_2").each(function() {
+        $(".select_menu_2").each(function () {
             if ($(this).is(":visible")) {
-                $("#activity_past_sel :selected").each(function(i, val) {
+                $("#activity_past_sel :selected").each(function (i, val) {
                     class_values_1[i] = $(val).text();
                 });
-                $("#activity_past_non_sel :selected").each(function(i, val) {
+                $("#activity_past_non_sel :selected").each(function (i, val) {
                     class_values_2[i] = $(val).text();
                 });
             }
         });
     } else if (conditions.time == 1) {
-        $(".select_menu_2").each(function() {
+        $(".select_menu_2").each(function () {
             if ($(this).is(":visible")) {
-                $("#activity_future_sel :selected").each(function(i, val) {
+                $("#activity_future_sel :selected").each(function (i, val) {
                     class_values_1[i] = $(val).text();
                 });
-                $("#activity_future_non_sel :selected").each(function(i, val) {
+                $("#activity_future_non_sel :selected").each(function (i, val) {
                     class_values_2[i] = $(val).text();
                 });
             }
@@ -188,10 +212,10 @@ function find_duplicates_in_array() {
 function check_choice(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             // if ($(this).attr('type') == 'text') {
-            $(this).each(function() {
+            $(this).each(function () {
                 class_values.push($(this).val().length);
                 score = $.inArray(0, class_values);
             });
@@ -217,14 +241,14 @@ function has_second_language() {
 
 function define_keys(ID, allowedInput, allowedMax) {
     if (allowedInput == "number") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code != 8 && code !== 0 && (code < 48 || code > 57)) {
                 return false;
             }
         });
     } else if (allowedInput == "text") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code > 32 && (code < 65 || code > 90) &&
                 (code < 97 || code > 122)) {
@@ -263,7 +287,7 @@ function init_data() {
 }
 
 function simple_transition(current_div, next_div) {
-    current_div.hide(function() {
+    current_div.hide(function () {
         next_div.show();
     });
 }
@@ -277,7 +301,7 @@ function send_to_server() {
 }
 
 function getIP() {
-    $.get("http://ipinfo.io", function(response) {
+    $.get("http://ipinfo.io", function (response) {
         window.clientip = response.ip;
     }, "jsonp");
 }
@@ -285,7 +309,7 @@ function getIP() {
 function check_slider(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             class_values.push($(this).val().length);
             score = $.inArray(15, class_values);
@@ -309,7 +333,7 @@ function check_slider_2(classname) {
     class_values = [];
     score = -999;
     // classname.each(function() {
-    $(".slider_io_output").each(function() {
+    $(".slider_io_output").each(function () {
         if ($(this).is(":visible")) {
             class_values.push($(this).val().length);
             score = $.inArray(15, class_values);
@@ -342,7 +366,7 @@ function get_unid() {
 }
 
 // source: http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
-$.fn.stretch_text = function() {
+$.fn.stretch_text = function () {
     var elmt = $(this),
         cont_width = elmt.width(),
         txt = elmt.html(),
@@ -406,7 +430,7 @@ function check_input(ID, language) {
         alert_msg = "Please use real English words and sentences in your answer. You will not be able to proceed otherwise. We cannot validate your participation without serious participation.";
     }
     textin = ID.val().toLowerCase().split(" ");
-    $.each(keywords, function(index, val) {
+    $.each(keywords, function (index, val) {
         tester = $.inArray(val, textin);
         if (tester < 0) {
             tester2 = 0;
@@ -444,7 +468,7 @@ function check_text(ID, desiredLength, language) {
 
 function sum(arr) {
     var r = 0;
-    $.each(arr, function(i, v) {
+    $.each(arr, function (i, v) {
         r += v;
     });
     return r;
@@ -452,7 +476,7 @@ function sum(arr) {
 
 function record_elapsed_start(ID) {
     elapsed = 0;
-    ID.keypress(function(e) {
+    ID.keypress(function (e) {
         time1 = now();
     });
 }
@@ -472,7 +496,7 @@ function get_length(ID) {
 function record_deletes() {
     var listen = true;
     deletions_arr = [];
-    $("#statement1").keydown(function(e) {
+    $("#statement1").keydown(function (e) {
         if (listen === true) {
             var code = e.keyCode || e.which;
             if (code == 8) {
@@ -539,7 +563,7 @@ function set_manipulation_check3_slider_value() {
 
 
 function activate_stretch() {
-    $('.stretch').each(function() {
+    $('.stretch').each(function () {
         $(this).stretch_text();
     });
 }
@@ -556,14 +580,18 @@ function get_cond() {
     // var cond_ver = 1;
     // 0: truthful
     // 1: deceptive
-    var cb = randomdigit(0, 1);
-    // var cb = 1;
+//    var cb = randomdigit(0, 1);
+    var cb = 1;
     // 0: past
     // 1: future
+    var ms = randomdigit(0, 1);
+//    0: no ms
+//    1: ms
     var conds = {
         'cond_lang': cond_lang,
         'cond_ver': cond_ver,
-        'time': cb
+        'time': cb,
+        'ms': ms
     };
     return conds;
 }
@@ -596,7 +624,7 @@ function select_manipulation(temporality, language) {
 
         // check for debug
         // check that only the non-selected ones appear
-        $(".table_row_div").each(function(index, val) {
+        $(".table_row_div").each(function (index, val) {
             sel_val = $(this).children().eq(0).text();
             sel_freq = $(this).children().eq(1).children().children().eq(1).val();
             sel_cert = $(this).children().eq(2).children().children().eq(1).val();
@@ -612,13 +640,13 @@ function select_manipulation(temporality, language) {
         selected_activities = obj_array;
         // check if overlap
         activities_do = collect_selected(temporality, 'do');
-        obj_array_ = obj_array.filter(function(val, index, array) {
+        obj_array_ = obj_array.filter(function (val, index, array) {
             return activities_do.indexOf(val.sel_val) < 0;
         });
 
     } else if (conditions.cond_ver == 1) {
         // check that only the non-selected ones appear
-        $(".table_row_div").each(function(index, val) {
+        $(".table_row_div").each(function (index, val) {
             sel_val = $(this).children().eq(0).text();
             sel_freq = $(this).children().eq(1).children().children().eq(1).val();
             sel_cert = $(this).children().eq(2).children().children().eq(1).val();
@@ -634,11 +662,11 @@ function select_manipulation(temporality, language) {
         selected_activities = obj_array;
         // check if overlap
         activities_do = collect_selected(temporality, 'do');
-        obj_array_ = obj_array.filter(function(val, index, array) {
+        obj_array_ = obj_array.filter(function (val, index, array) {
             return activities_do.indexOf(val.sel_val) < 0;
         });
         // selected_obj_ = obj_array_.reduce((max, single) => max.combined > single.combined ? max : single);
-        selected_obj_ = obj_array_.reduce(function(max, single) {
+        selected_obj_ = obj_array_.reduce(function (max, single) {
             if (max.combined > single.combined) {
                 return max;
             } else {
@@ -648,10 +676,10 @@ function select_manipulation(temporality, language) {
         // console.log(selected_obj_);
         // console.log(selected_obj_x);
         selected_obj__ = selected_obj_.sel_val;
-        matches = choices.filter(function(val, index, array) {
+        matches = choices.filter(function (val, index, array) {
             return val.option_normal == selected_obj__;
         });
-        selected_obj = matches[0].option_specific;
+        selected_obj = matches[0].option_normal;
     }
     console.log(selected_obj);
     return selected_obj;
@@ -813,21 +841,21 @@ function collect_selected(temporality, state) {
     var selected_items = [];
     if (temporality == 'past') {
         if (state == 'do') {
-            $("#activity_past :selected").each(function(i, val) {
+            $("#activity_past :selected").each(function (i, val) {
                 selected_items[i] = $(val).text();
             });
         } else if (state == 'notdo') {
-            $("#activity_past_non :selected").each(function(i, val) {
+            $("#activity_past_non :selected").each(function (i, val) {
                 selected_items[i] = $(val).text();
             });
         }
     } else if (temporality == 'future') {
         if (state == 'do') {
-            $("#activity_future :selected").each(function(i, val) {
+            $("#activity_future :selected").each(function (i, val) {
                 selected_items[i] = $(val).text();
             });
         } else if (state == 'notdo') {
-            $("#activity_future_non :selected").each(function(i, val) {
+            $("#activity_future_non :selected").each(function (i, val) {
                 selected_items[i] = $(val).text();
             });
         }
@@ -839,13 +867,13 @@ function collect_non_selected(temporality, state) {
     var selected_items = [];
     if (temporality == 'past') {
         if (state == 'do') {
-            $("#activity_past option").each(function() {
+            $("#activity_past option").each(function () {
                 if (!$(this).is(':selected')) {
                     selected_items.push($(this).text());
                 }
             });
         } else if (state == 'notdo') {
-            $("#activity_past_non option").each(function() {
+            $("#activity_past_non option").each(function () {
                 if (!$(this).is(':selected')) {
                     selected_items.push($(this).text());
                 }
@@ -853,13 +881,13 @@ function collect_non_selected(temporality, state) {
         }
     } else if (temporality == 'future') {
         if (state == 'do') {
-            $("#activity_future option").each(function() {
+            $("#activity_future option").each(function () {
                 if (!$(this).is(':selected')) {
                     selected_items.push($(this).text());
                 }
             });
         } else if (state == 'notdo') {
-            $("#activity_future_non option").each(function() {
+            $("#activity_future_non option").each(function () {
                 if (!$(this).is(':selected')) {
                     selected_items.push($(this).text());
                 }
@@ -869,15 +897,15 @@ function collect_non_selected(temporality, state) {
     return selected_items;
 }
 
-var now = (function() {
+var now = (function () {
     var performance = window.performance || {};
-    performance.now = (function() {
+    performance.now = (function () {
         return performance.now ||
             performance.webkitNow ||
             performance.msNow ||
             performance.oNow ||
             performance.mozNow ||
-            function() {
+            function () {
                 return new Date().getTime();
             };
     })();
@@ -921,10 +949,10 @@ function set_lang_other() {
 }
 
 function simple_transition_2(class_current_div, next_div) {
-    class_current_div.each(function() {
+    class_current_div.each(function () {
         if ($(this).is(":visible")) {
             $("#iframe_gmaps").hide();
-            $(this).hide(function() {
+            $(this).hide(function () {
                 next_div.show();
             });
         }
@@ -993,14 +1021,14 @@ function check_quiz_answer(id, number, language) {
 }
 
 // source: http://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array
-Array.prototype.contains = function(v) {
+Array.prototype.contains = function (v) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] === v) return true;
     }
     return false;
 };
 
-Array.prototype.unique = function() {
+Array.prototype.unique = function () {
     var arr = [];
     for (var i = 0; i < this.length; i++) {
         if (!arr.contains(this[i])) {
