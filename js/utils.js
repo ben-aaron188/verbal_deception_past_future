@@ -353,13 +353,36 @@ function check_slider_2(classname) {
     }
 }
 
+function check_slider_with_listener(classname) {
+    class_values = [];
+    score = 0;
+    classname.each(function() {
+        if ($(this).is(":visible")) {
+            class_values.push(this.moved);
+            score = $.inArray(undefined, class_values);
+        }
+    });
+    if (score != -1) {
+        var alert_msg;
+        if (conditions.cond_lang === 0) {
+            alert_msg = "Beweeg alsjeblieft de sliders om je keuzes aan te geven.";
+        } else if (conditions.cond_lang == 1) {
+            alert_msg = "Please move the sliders to indicate your choices.";
+        }
+        alert(alert_msg);
+        score = 0;
+    } else {
+        return true;
+    }
+}
+
 function set_slider_true() {
 
 }
 
 function get_unid() {
     // if (val_score === 0) {
-    unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
+    unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
     // } else {
     //     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_" +val_score;
     // }
@@ -545,7 +568,7 @@ function set_planning_slider_value_2(number) {
 function set_manipulation_check1_slider_value() {
     var input = "#manipulation_check1_val";
     var output = "#manipulation_check1_output";
-    $(output).val($(input).val() + '%');
+    $(output).val($(input).val() + '%').hide();
 }
 
 function set_manipulation_check2_slider_value() {
@@ -572,6 +595,7 @@ function randomdigit(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//§take params from ajax
 function get_cond() {
     var cond_lang = 1;
     // 0: Dutch
@@ -595,6 +619,50 @@ function get_cond() {
     };
     return conds;
 }
+
+function get_cond_from_ajax(ajax_retrieved_obj) {
+    var cond_lang = 1;
+    // 0: Dutch
+    // 1: English
+    var cond_ver;
+    // 0: truthful
+    // 1: deceptive
+    // var cb = randomdigit(0, 1);
+    var cb = 1;
+    // 0: past
+    // 1: future
+    var ms;
+    // 0: no ms
+    // 1: ms
+    var control_cond = ajax_retrieved_obj.cond_cond;
+    var control_id = ajax_retrieved_obj.cond_id;
+    var control_status = ajax_retrieved_obj.cond_status;
+    if(ajax_retrieved_obj.cond_cond == 1){
+        cond_ver = 0;
+        ms = 0;
+    } else if(ajax_retrieved_obj.cond_cond == 2){
+        cond_ver = 0;
+        ms = 1;
+    } else if(ajax_retrieved_obj.cond_cond == 3){
+        cond_ver = 1;
+        ms = 0;
+    } else if(ajax_retrieved_obj.cond_cond == 4){
+        cond_ver = 1;
+        ms = 1;
+    };
+    
+    var conds = {
+        'cond_lang': cond_lang,
+        'cond_ver': cond_ver,
+        'time': cb,
+        'ms': ms,
+        'control_id': control_id,
+        'control_status': control_status,
+        'control_cond': control_cond
+    };
+    return conds;
+}
+
 
 function select_manipulation(temporality, language) {
     var selected_obj;

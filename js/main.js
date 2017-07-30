@@ -13,8 +13,21 @@ var min_char = 80;
 var time_langtask1 = 2000;
 var quiz_order = [0, 1, 2, 3, 4, 5, 6, 7];
 
+function add_input_listener(classname) {
+    classname.each(function() {
+        if ($(this).is(":visible")) {
+            $(this).on("input", function() {
+                $(this).prop('moved', true);
+            });
+            // console.log("added listener to " + this.id);
+        }
+    });
+}
+
+
 // task flow
 $(document).ready(function () {
+    get_condition_from_db(display_condition_details);
     var text = introduction;
     $('body').prepend('<div id="intro1" class="main_instructions_">' + text + '</div>');
     $("#intro1").show();
@@ -28,7 +41,7 @@ $(document).ready(function () {
 });
 
 function to_informed_consent() {
-    conditions = get_cond();
+    conditions = get_cond_from_ajax(condition_meta);
     $("#back").hide();
     var text = ic;
     $('body').prepend('<div id="informed_consent" class="main_instructions_">' + text + '</div>');
@@ -184,6 +197,7 @@ function to_main_instructions7() {
             });
             activate_stretch();
             simple_transition_2($(".main_instructions_"), $("#main_instructions7"));
+            add_input_listener($(".slider_io_slider"));
             $("#next").attr('onclick', 'to_main_instructions7a()');
             $("#back").attr('onclick', 'to_main_instructions6_proxy()').show();
         }
@@ -223,6 +237,7 @@ function to_main_instructions7_proxy() {
         });
         activate_stretch();
         simple_transition_2($(".main_instructions__"), $("#main_instructions7"));
+        add_input_listener($(".slider_io_slider"));
         $("#next").attr('onclick', 'to_main_instructions7a()');
         $("#back").attr('onclick', 'to_main_instructions6_proxy()').show();
     }
@@ -262,6 +277,7 @@ function to_main_instructions7a() {
         });
         activate_stretch();
         simple_transition_2($(".main_instructions__"), $("#main_instructions7a"));
+        add_input_listener($(".slider_io_slider"));
         // $("#next").attr('onclick', 'to_model_statement1()');
         $("#next").attr('onclick', 'to_text_input_instructions1()');
         $("#back").attr('onclick', 'to_main_instructions7_proxy()');
@@ -298,7 +314,7 @@ function to_text_input_instructions1() {
         if (conditions.ms == 1) {
             $("#next").attr('onclick', 'to_model_statement1()');
         } else if (conditions.ms === 0) {
-            $("#next").attr('onclick', 'to_pre_input_reminder()');
+            $("#next").attr('onclick', 'to_pre_input_reminder_2()');
         }
     }
 }
@@ -435,6 +451,44 @@ function to_pre_input_reminder() {
     }
 }
 
+function to_pre_input_reminder_2() {
+    var text;
+    if (conditions.cond_lang === 0) {
+        if (conditions.time === 0) {
+            if (conditions.cond_ver === 0) {
+                text = pre_input_truthful_past_nl;
+            } else if (conditions.cond_ver == 1) {
+                text = pre_input_deceptive_past_nl;
+            }
+        } else if (conditions.time == 1) {
+            if (conditions.cond_ver === 0) {
+                text = pre_input_truthful_future_nl;
+            } else if (conditions.cond_ver == 1) {
+                text = pre_input_deceptive_future_nl;
+            }
+        }
+    } else if (conditions.cond_lang == 1) {
+        if (conditions.time === 0) {
+            if (conditions.cond_ver === 0) {
+                text = pre_input_truthful_past_en;
+            } else if (conditions.cond_ver == 1) {
+                text = pre_input_deceptive_past_en;
+            }
+        } else if (conditions.time == 1) {
+            if (conditions.cond_ver === 0) {
+                text = pre_input_truthful_future_en;
+            } else if (conditions.cond_ver == 1) {
+                text = pre_input_deceptive_future_en;
+            }
+        }
+    }
+    var instruction_span = '<span id="instructive_span2">' + instructive + '</span>';
+    $('body').prepend('<div id="pre_input_instructions" class="main_instructions_">' + text + instruction_span + '</div>');
+    simple_transition_2($(".main_instructions_"), $("#pre_input_instructions"));
+    $("#next").attr('onclick', 'to_statement_input1()');
+}
+
+
 function to_statement_input1() {
     var text;
     if (conditions.cond_lang === 0) {
@@ -443,7 +497,12 @@ function to_statement_input1() {
         if (conditions.time === 0) {
             text = instructions_inputfield_past_en;
         } else if (conditions.time == 1) {
-            text = instructions_inputfield_future_en;
+            if (conditions.ms === 0) {
+                text = instructions_inputfield_future_en_noms;
+            } else if (conditions.ms == 1) {
+                text = instructions_inputfield_future_en;
+            }
+
         }
         // text = instructions_inputfield_en;
     }
@@ -501,7 +560,7 @@ function to_manipulation_check() {
                 '<span class="manipulation_check_span" style="left: 50%;">' +
                 '<div class="slider_io">' +
                 '<span id="slider_instr">How were you instructed to write your statement?</span> ' +
-                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check1_val" value="50" min="0" max="100" step="5" oninput="set_manipulation_check1_slider_value()">' +
+                '<input type="range" class="slider_io_slider select_menu" id="manipulation_check1_val" value="0" min="-1" max="1" step="1" oninput="set_manipulation_check1_slider_value()">' +
                 '<output class="slider_io_output" id="manipulation_check1_output">move the slider</output>' +
                 '<div class="slider_io_output_labels stretch">(truthful) -  -  -  (deceptive)</div> ' +
                 '</div>' +
@@ -533,6 +592,7 @@ function to_manipulation_check() {
         $("#manipulation_check").append(slider_b);
         $("#manipulation_check").append(slider_c);
         activate_stretch();
+        add_input_listener($(".slider_io_slider"));
         simple_transition_2($(".main_instructions_"), $("#manipulation_check"));
         $("#next").attr('onclick', 'to_demographics1()');
     }
@@ -647,6 +707,10 @@ function get_data() {
     data.cond_lang = conditions.cond_lang;
     data.cond_ver = conditions.cond_ver;
     data.time = conditions.time;
+    data.ms = conditions.ms;
+    data.control_id = conditions.control_id;
+    data.control_status = conditions.control_status;
+    data.control_cond = conditions.control_cond;
 
     data.manipulation_check1 = $("#manipulation_check1_val").val();
     data.manipulation_check2 = $("#manipulation_check2_val").val();

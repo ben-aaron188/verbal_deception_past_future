@@ -199,9 +199,9 @@ var choices_en = [{
 function populate_select_from_json(ID, language) {
     var choices;
     if (language === 0) {
-        choices = choices_nl;
+        choices = shuffle(choices_nl);
     } else if (language == 1) {
-        choices = choices_en;
+        choices = shuffle(choices_en);
     }
     $.each(choices, function(key, value) {
         $(ID)

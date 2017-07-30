@@ -132,7 +132,7 @@ var quiz_en = [{
     quiz_correct: "Anne and Yasmin"
 }, {
     quiz_id: 6,
-    quiz_question: "At which University is the author going to study?",
+    quiz_question: "At which university is the author going to study?",
     quiz_options: {
         option1: "University of Amsterdam",
         option2: "Utrecht University",
