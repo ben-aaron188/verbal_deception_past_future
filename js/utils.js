@@ -195,7 +195,7 @@ function find_duplicates_in_array() {
         if (conditions.cond_lang === 0) {
             alert_msg = "Je kunt niet voor een activiteit aangeven dat je deze wel en tegelijkertijd niet gaat doen komend weekend. Kies opnieuw en lees de instructies zorgvuldig.";
         } else if (conditions.cond_lang == 1) {
-            alert_msg = "You cannot indicate for the same activity that you will and will not do it next weekend. Please choose again and read the instructions carefully.";
+            alert_msg = "You cannot indicate for the same activity that you will and will not do it this weekend. Please choose again and read the instructions carefully.";
         }
         alert(alert_msg);
     }
@@ -650,7 +650,7 @@ function get_cond_from_ajax(ajax_retrieved_obj) {
         cond_ver = 1;
         ms = 1;
     };
-    
+
     var conds = {
         'cond_lang': cond_lang,
         'cond_ver': cond_ver,
@@ -872,7 +872,7 @@ function generate_table_row(number, item, temporality, language, state) {
                     '</span>' +
                     '<span class="certainty_span" style="left: 66%;">' +
                     '<div class="slider_io">' +
-                    '<span id="slider_instr">How certain are you that you will <u>not</u> do this activity next weekend?</span> ' +
+                    '<span id="slider_instr">How certain are you that you will <u>not</u> do this activity this weekend?</span> ' +
                     '<input type="range" class="slider_io_slider select_menu" id="activity' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value_2(' + number + ')">' +
                     '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output>' +
                     '<div class="slider_io_output_labels stretch">(not at all) -  -  -  (very much)</div> ' +

@@ -63,23 +63,3 @@ function display_condition_details() {
     window.condition_meta = condition_meta_data;
     // return (credentials);
 }
-
-
-// sets initial conditions
-function init_conditions_in_db(condition, status_update) {
-    $.ajax({
-        type: "POST",
-        url: "../php/init_conditions.php",
-        data: {
-            condition: condition,
-            updatable_status: status_update
-        },
-        error: function (data) {
-            // alert(data);
-        },
-        success: function (data) {
-            console.log(data);
-            console.log("conditions initialized");
-        },
-    });
-}
